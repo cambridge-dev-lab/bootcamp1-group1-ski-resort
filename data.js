@@ -9,22 +9,24 @@ const RESORTS = [
 
 const SEED_REVIEWS = [
   { resort: "Loon Mountain", author: "Maria", rating: 5, run: "Walking Boss", food: "Chili at the summit lodge is great" },
+  { resort: "Wachusett Mountain", author: "Sam", rating: 3, run: "Smith Walton", food: "Cafeteria pizza is fine, long lines on weekends" },
+  { resort: "Killington", author: "Lee", rating: 4, run: "Superstar", food: "Waffle cabin halfway down — worth the stop" },
+  { resort: "Killington", author: "Ana", rating: 5, run: "Great Eastern", food: "Bring your own — the base lodge gets packed at noon" },
 ];
-
-const STORAGE_KEY = "ski-reviews";
 
 // All storage goes through these two functions.
 // The rest of the app doesn't know where reviews are kept.
+// For now they live in a variable, so they reset on reload —
+// swapping in the Firebase versions below makes them survive.
+
+let savedReviews = SEED_REVIEWS;
 
 async function loadReviews() {
-  const saved = localStorage.getItem(STORAGE_KEY);
-  return saved ? JSON.parse(saved) : SEED_REVIEWS;
+  return savedReviews;
 }
 
 async function saveReview(review) {
-  const reviews = await loadReviews();
-  reviews.push(review);
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(reviews));
+  savedReviews.push(review);
 }
 
 // Firebase versions of the same two functions — swap them in when the database is ready

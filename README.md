@@ -8,7 +8,7 @@ Open `index.html` in the browser (use Live Server if you have it).
 
 - `index.html` — the page: header with the Map/List toggle, one div per view
 - `style.css` — colors and fonts are variables at the top; header and layout styles are done
-- `data.js` — **shared**: the resort list, seed reviews, and `loadReviews()` / `saveReview()`. All storage goes through these two functions — the rest of the app doesn't know where reviews are kept. The Firebase versions are commented at the bottom, ready to swap in
+- `data.js` — **shared**: the resort list, seed reviews, and `loadReviews()` / `saveReview()`. All storage goes through these two functions — the rest of the app doesn't know where reviews are kept. For now reviews live in a variable and reset on reload; the Firebase versions are commented at the bottom, ready to swap in
 - `list.js` — the list view: render reviews, add-review form
 - `map.js` — the map view: Leaflet map, one marker per resort
 - `app.js` — **shared**: the view toggle
