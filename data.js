@@ -8,10 +8,10 @@ const RESORTS = [
 ];
 
 const SEED_REVIEWS = [
-  { resort: "Loon Mountain", author: "Maria", rating: 5, run: "Walking Boss", food: "Chili at the summit lodge is great" },
-  { resort: "Wachusett Mountain", author: "Sam", rating: 3, run: "Smith Walton", food: "Cafeteria pizza is fine, long lines on weekends" },
-  { resort: "Killington", author: "Lee", rating: 4, run: "Superstar", food: "Waffle cabin halfway down — worth the stop" },
-  { resort: "Killington", author: "Ana", rating: 5, run: "Great Eastern", food: "Bring your own — the base lodge gets packed at noon" },
+  { resort: "Loon Mountain", author: "Maria", rating: 5, slope: "Walking Boss", body: "There were no loons but the snow was great." },
+  { resort: "Wachusett Mountain", author: "Sam", rating: 3, slope: "Smith Walton", body: "Cafeteria pizza is fine, long lines on weekends" },
+  { resort: "Killington", author: "Lee", rating: 4, slope: "Superstar", body: "Waffle cabin halfway down — worth the stop" },
+  { resort: "Killington", author: "Ana", rating: 5, slope: "Great Eastern", body: "Bring your own — the base lodge gets packed at noon" },
 ];
 
 // All storage goes through these two functions.
