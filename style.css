@@ -1,0 +1,141 @@
+:root {
+  --ink: #22333b;
+  --muted: #64788a;
+  --paper: #eef2f5;
+  --surface: #ffffff;
+  --line: #d9e1e8;
+  --blue: #2d6a9f;
+  --blue-dark: #245680;
+  --gold: #c9861f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Bricolage Grotesque", "Segoe UI", sans-serif;
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+button,
+input,
+select {
+  font-family: inherit;
+  font-size: 0.95rem;
+}
+
+:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+/* ─── Header ─── */
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  padding: 0.65rem 1.2rem;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.trail-marks {
+  display: flex;
+  gap: 0.25rem;
+  font-size: 0.65rem;
+}
+
+.trail-mark-green {
+  color: #2e7d4f;
+}
+
+.trail-mark-blue {
+  color: var(--blue);
+}
+
+.trail-mark-black {
+  color: var(--ink);
+}
+
+h1 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.view-toggle {
+  display: flex;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.15rem;
+}
+
+.toggle-btn {
+  padding: 0.3rem 1.1rem;
+  border: none;
+  border-radius: 999px;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.toggle-btn.active {
+  background: var(--ink);
+  color: white;
+}
+
+.login-btn {
+  padding: 0.3rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.login-btn:hover {
+  border-color: var(--muted);
+}
+
+.hidden {
+  display: none;
+}
+
+/* ─── Map view ─── */
+
+/* The map must have a height — without it Leaflet renders 0 pixels tall */
+#map {
+  height: calc(100vh - 3.6rem);
+}
+
+/* ─── List view ─── */
+
+#list-view {
+  max-width: 640px;
+  margin: 1.5rem auto;
+  padding: 0 1rem;
+}
+
+#resort-select {
+  width: 100%;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--ink);
+  margin-bottom: 1rem;
+}
