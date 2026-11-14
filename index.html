@@ -1,52 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ski Resort Reviews</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link rel="stylesheet" href="style.css" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700&display=swap" rel="stylesheet" />
-  </head>
-  <body>
-    <header>
-      <div class="brand">
-        <span class="trail-marks">
-          <span class="trail-mark-green">●</span><span class="trail-mark-blue">■</span><span class="trail-mark-black">◆</span>
-        </span>
-        <h1>Ski Resort Reviews</h1>
-      </div>
-      <div class="view-toggle">
-        <button id="map-btn" class="toggle-btn active">Map</button>
-        <button id="list-btn" class="toggle-btn">List</button>
-      </div>
-      <button id="login-btn" class="login-btn">Log in</button>
-    </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ski Resort Reviews</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="style.css" />
 
-    <div id="map-view">
-      ToDo: Map view
-      <div id="map">
-        ToDo: Map
-      </div>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700&display=swap"
+    rel="stylesheet" />
+</head>
+
+<body>
+  <header>
+    <div class="brand">
+      <span class="trail-marks">
+        <span class="trail-mark-green">●</span><span class="trail-mark-blue">■</span><span
+          class="trail-mark-black">◆</span>
+      </span>
+      <h1>Ski Resort Reviews</h1>
     </div>
-
-    <div id="list-view" class="hidden">
-      ToDo: List
-      <select id="resort-select">
-        <option value="all">All resorts</option>
-      </select>
-      <div id="reviews">
-        ToDo: Reviews
-      </div>
+    <div class="view-toggle">
+      <button id="map-btn" class="toggle-btn active">Map</button>
+      <button id="list-btn" class="toggle-btn">List</button>
     </div>
+    <button id="login-btn" class="login-btn">Log in</button>
+  </header>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="data.js"></script>
-    <script src="list.js"></script>
-    <script src="map.js"></script>
-    <script src="app.js"></script>
-  </body>
+  <div id="map-view">
+    <div id="map">
+    </div>
+  </div>
+
+  <div id="list-view" class="hidden">
+    ToDo: List
+    <select id="resort-select">
+      <option value="all">All resorts</option>
+    </select>
+    <div id="reviews">
+      ToDo: Reviews
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="data.js"></script>
+  <script src="list.js"></script>
+  <script src="map.js"></script>
+  <script src="app.js"></script>
+</body>
+
 </html>
