@@ -134,9 +134,9 @@ h1 {
   z-index: 1001;
   width: 20rem;
   background: white;
-  border: thick black solid;
   border-radius: 10px;
   display: none;
+  filter: drop-shadow(6px 6px 6px #1b1d1c);
 }
 
 .review-card--visible {
@@ -147,6 +147,18 @@ h1 {
   position: absolute;
   right: 0.5rem;
   top: 0.5rem;
+}
+
+.review-card__title {
+  margin: 1rem;
+}
+
+.review__span {
+  display: block;
+}
+
+.review {
+  margin: 0 1rem 1rem 1rem;
 }
 
 /* ─── List view ─── */
