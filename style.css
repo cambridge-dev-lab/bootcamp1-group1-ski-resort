@@ -122,6 +122,33 @@ h1 {
   height: calc(100vh - 3.6rem);
 }
 
+#map-view {
+  position: relative;
+}
+
+.review-card {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  bottom: 2rem;
+  z-index: 1001;
+  width: 20rem;
+  background: white;
+  border: thick black solid;
+  border-radius: 10px;
+  display: none;
+}
+
+.review-card--visible {
+  display: block;
+}
+
+.review-card__close {
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+}
+
 /* ─── List view ─── */
 
 #list-view {

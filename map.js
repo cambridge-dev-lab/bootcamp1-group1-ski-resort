@@ -1,3 +1,8 @@
+const flyout = document.querySelector(".review-card");
+const btnFlyoutClose = document.querySelector(".review-card__close");
+
+
+
 const map = L.map("map").setView([43.9, -71.9], 7);
 L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}", {
   attribution: "Tiles © Esri — Esri, DeLorme, NAVTEQ",
@@ -11,7 +16,10 @@ for (const resort of RESORTS) {
   L.marker([resort.lat, resort.lng])
     .addTo(resortLayer)
     .bindPopup(resort.name)
+    .on("click", () => { flyout.classList.add("review-card--visible") })
 }
+
+btnFlyoutClose.onclick = () => { flyout.classList.remove("review-card--visible") }
 
 const layerControl = L.control.layers(null, mapOverlays).addTo(map)
 
@@ -33,7 +41,6 @@ const SMILEY = [
 for (const dot of SMILEY) {
   L.marker([dot.lat, dot.lng])
     .addTo(smileyLayer)
-    .bindPopup(dot.name)
 }
 // AI slop:
 map.on("overlayadd", (e) => {
