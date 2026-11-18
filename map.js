@@ -1,33 +1,10 @@
 const flyout = document.querySelector(".review-card");
 const flyoutTitle = document.querySelector(".review-card__title");
-const flyoutReview = document.getElementById("review-card__review-box")
+const flyoutReview = document.getElementById("review-card__review-box");
 const btnFlyoutClose = document.querySelector(".review-card__close");
 
-function formatHTML(className, title, content) {
-  const span = document.createElement("span");
-  span.classList.add("review__span", className);
-  span.textContent = title + content;
-  return span;
-}
-
-function getResort(marker) {
-  flyoutTitle.textContent = marker;
-  flyoutReview.replaceChildren();
-  for (const review of SEED_REVIEWS) {
-    if (review.resort === marker) {
-      const item = document.createElement("div");
-      item.classList.add("review");
-      item.append(
-        formatHTML("review__author", "Author: ", review.author),
-        formatHTML("review__rating", "Rating: ", review.rating),
-        formatHTML("review__slope", "Slope: ", review.slope),
-        formatHTML("review__body", "Review: ", review.body),
-      );
-      flyoutReview.append(item);
-    }
-  }
-}
-
+let resorts = [];
+let reviews = [];
 
 const map = L.map("map").setView([43.9, -71.9], 7);
 L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}", {
@@ -41,18 +18,58 @@ const mapOverlays = {
   "Smiley": smileyLayer,
 };
 
-resortLayer.clearLayers();
 
-for (const resort of RESORTS) {
-  L.marker([resort.lat, resort.lng])
-    .addTo(resortLayer)
-    .bindPopup(resort.name)
-    .on("click", () => {
-      flyout.classList
-        .add("review-card--visible")
-      getResort(resort.name)
-    });
+function formatHTML(className, title, content) {
+  const span = document.createElement("span");
+  span.classList.add("review__span", className);
+  span.textContent = title + content;
+  return span;
 }
+
+function getResort(marker) {
+  flyoutTitle.textContent = marker.name;
+  flyoutReview.replaceChildren();
+  for (const review of reviews) {
+    if (review.resortId === marker.id) {
+      const item = document.createElement("div");
+      item.classList.add("review");
+      item.append(
+        formatHTML("review__author", "Author: ", review.author),
+        formatHTML("review__rating", "Rating: ", review.rating),
+        formatHTML("review__slope", "Slope: ", review.slope),
+        formatHTML("review__body", "Review: ", review.body),
+      );
+      flyoutReview.append(item);
+    }
+  }
+}
+
+function drawMarkers() {
+  for (const resort of resorts) {
+    L.marker([resort.lat, resort.lng])
+      .addTo(resortLayer)
+      .bindPopup(resort.name)
+      .on("click", () => {
+        flyout.classList
+          .add("review-card--visible")
+        getResort(resort)
+      });
+  }
+}
+
+async function initialLoad() {
+  try {
+    resorts = await loadResorts();
+    reviews = await loadReviews();
+    drawMarkers();
+  } catch (err) {
+    console.log(err)
+    ERROR_DISPLAY.innerHTML = ERROR_MESSAGE
+  }
+}
+
+initialLoad()
+
 
 btnFlyoutClose.onclick = () => {
   flyout.classList.
