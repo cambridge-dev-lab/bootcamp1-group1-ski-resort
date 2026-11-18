@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "Wachusett Mountain",
+    "lat": 42.5034,
+    "lng": -71.8864
+  },
+  {
+    "id": 2,
+    "name": "Loon Mountain",
+    "lat": 44.036,
+    "lng": -71.6214
+  },
+  {
+    "id": 3,
+    "name": "Killington",
+    "lat": 43.6045,
+    "lng": -72.8201
+  }
+]
