@@ -18,8 +18,6 @@ const mapOverlays = {
   "Smiley": smileyLayer,
 };
 
-resortLayer.clearLayers();
-
 
 function formatHTML(className, title, content) {
   const span = document.createElement("span");
@@ -29,10 +27,10 @@ function formatHTML(className, title, content) {
 }
 
 function getResort(marker) {
-  flyoutTitle.textContent = marker;
+  flyoutTitle.textContent = marker.name;
   flyoutReview.replaceChildren();
   for (const review of reviews) {
-    if (review.resort === marker) {
+    if (review.resortId === marker.id) {
       const item = document.createElement("div");
       item.classList.add("review");
       item.append(
@@ -46,7 +44,6 @@ function getResort(marker) {
   }
 }
 
-
 function drawMarkers() {
   for (const resort of resorts) {
     L.marker([resort.lat, resort.lng])
@@ -55,7 +52,7 @@ function drawMarkers() {
       .on("click", () => {
         flyout.classList
           .add("review-card--visible")
-        getResort(resort.name)
+        getResort(resort)
       });
   }
 }
@@ -64,11 +61,11 @@ async function initialLoad() {
   try {
     resorts = await loadResorts();
     reviews = await loadReviews();
+    drawMarkers();
   } catch (err) {
     console.log(err)
     ERROR_DISPLAY.innerHTML = ERROR_MESSAGE
   }
-  drawMarkers();
 }
 
 initialLoad()
