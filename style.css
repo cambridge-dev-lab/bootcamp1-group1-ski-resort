@@ -139,3 +139,50 @@ h1 {
   color: var(--ink);
   margin-bottom: 1rem;
 }
+
+.reviews {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.list-card {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 32px;
+  background-color: white;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+
+.profile {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+.avatar {
+  max-width: 24px;
+  max-height: 24px;
+}
+
+.card-data {
+  display: flex;
+  flex-direction: column;
+  line-height: 0px;
+}
+
+.resort-rate {
+  display: flex;
+  flex-direction: column;
+}
+
+.rate-star {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.material-symbols-outlined {
+  display: inline-block;
+  font-size: 4px;
+}

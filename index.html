@@ -12,6 +12,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700&display=swap"
     rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=star" />
 </head>
 
 <body>
@@ -30,18 +31,35 @@
     <button id="login-btn" class="login-btn">Log in</button>
   </header>
 
-  <div id="map-view">
+  <div id="map-view" class="hidden">
     <div id="map">
     </div>
   </div>
 
-  <div id="list-view" class="hidden">
+  <div id="list-view" >
     ToDo: List
     <select id="resort-select">
       <option value="all">All resorts</option>
     </select>
-    <div id="reviews">
-      ToDo: Reviews
+    <div id="reviews" class="reviews">
+      <!-- <div id="list-card" class="list-card">
+        <div id="profile" class="profile">
+          <img id="avatar" class="avatar" src="avatar-woman.png">
+          <p id="author" class="author">Author</p>
+          <p id="contribute" class="contribute">123 Contributions</p>
+        </div>
+        <div id="card-data" class="card-data">
+          <div id="resort-rate" class="resort-rate">
+            <div id="rate-star" class="rate-star">
+              <p id="rating" class="rating">Rating</p>
+              <span class="material-symbols-outlined">star</span>
+            </div>
+            <h3 id="resort" class="resort">Resort Name</h3>
+          </div>
+          <p id="slope" class="slope">Favorite Slope</p>
+          <p id="content" class="content">Comments</p>
+        </div>
+      </div> -->
     </div>
   </div>
 
