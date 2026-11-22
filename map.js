@@ -1,29 +1,44 @@
-const flyout = document.querySelector(".review-card");
-const flyoutTitle = document.querySelector(".review-card__title");
-const flyoutReview = document.getElementById("review-card__review-box")
-const btnFlyoutClose = document.querySelector(".review-card__close");
+const reviewCard = document.querySelector(".review-card");
+const reviewCardTitle = document.querySelector(".review-card__title");
+const reviewCardReview = document.getElementById("review-card__review-box")
+const reviewCardCloseBtn = document.querySelector(".review-card__close");
 
-function formatHTML(className, title, content) {
-  const span = document.createElement("span");
-  span.classList.add("review__span", className);
-  span.textContent = title + content;
-  return span;
+function createElement(tag, classNames, textContent) {
+  const elem = document.createElement(tag);
+
+  if (Array.isArray(classNames)) {
+    for (const className of classNames) {
+      elem.classList.add(className);
+    }
+  } else if (typeof classNames === "string") {
+    elem.classList.add(classNames);
+  }
+
+  if (textContent) {
+    elem.textContent = textContent;
+  }
+
+  return elem;
 }
 
+
+
+
+
+
 function getResort(marker) {
-  flyoutTitle.textContent = marker;
-  flyoutReview.replaceChildren();
+  reviewCardTitle.textContent = marker;
+  reviewCardReview.replaceChildren();
   for (const review of SEED_REVIEWS) {
     if (review.resort === marker) {
-      const item = document.createElement("div");
-      item.classList.add("review");
+      const item = createElement("div", "review");
       item.append(
-        formatHTML("review__author", "Author: ", review.author),
-        formatHTML("review__rating", "Rating: ", review.rating),
-        formatHTML("review__slope", "Slope: ", review.slope),
-        formatHTML("review__body", "Review: ", review.body),
+        createElement("span", ["review__span", "review__author"], `Author: ${review.author}`),
+        createElement("span", ["review__span", "review__rating"], `Rating: ${review.rating}`),
+        createElement("span", ["review__span", "review__slope"], `Slope: ${review.slope}`),
+        createElement("span", ["review__span", "review__body"], `Review: ${review.body}`),
       );
-      flyoutReview.append(item);
+      reviewCardReview.append(item);
     }
   }
 }
@@ -48,19 +63,19 @@ for (const resort of RESORTS) {
     .addTo(resortLayer)
     .bindPopup(resort.name)
     .on("click", () => {
-      flyout.classList
+      reviewCard.classList
         .add("review-card--visible")
       getResort(resort.name)
     });
 }
 
-btnFlyoutClose.onclick = () => {
-  flyout.classList.
+reviewCardCloseBtn.onclick = () => {
+  reviewCard.classList.
     remove("review-card--visible");
 }
 
 map.on("click", () => {
-  flyout.classList
+  reviewCard.classList
     .remove("review-card--visible");
 });
 
