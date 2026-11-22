@@ -3,6 +3,7 @@ const reviewCardTitle = document.querySelector(".review-card__title");
 const reviewCardReview = document.getElementById("review-card__review-box")
 const reviewCardCloseBtn = document.querySelector(".review-card__close");
 
+
 function createElement(tag, classNames, textContent) {
   const elem = document.createElement(tag);
 
@@ -21,26 +22,42 @@ function createElement(tag, classNames, textContent) {
   return elem;
 }
 
-
-
-
-
-
-function getResort(marker) {
-  reviewCardTitle.textContent = marker;
-  reviewCardReview.replaceChildren();
-  for (const review of SEED_REVIEWS) {
-    if (review.resort === marker) {
-      const item = createElement("div", "review");
-      item.append(
-        createElement("span", ["review__span", "review__author"], `Author: ${review.author}`),
-        createElement("span", ["review__span", "review__rating"], `Rating: ${review.rating}`),
-        createElement("span", ["review__span", "review__slope"], `Slope: ${review.slope}`),
-        createElement("span", ["review__span", "review__body"], `Review: ${review.body}`),
-      );
-      reviewCardReview.append(item);
+function getResortReviewByName(reviews, resortName) {
+  const allReviews = [];
+  for (const review of reviews) {
+    if (review.resort === resortName) {
+      allReviews.push(review);
     }
   }
+  return allReviews;
+}
+
+function renderReviewContent(reviews) {
+  reviewCardReview.replaceChildren();
+  reviewCardTitle.textContent = reviews[0].resort;
+  const item = createElement("div", "review");
+
+  for (x in reviews) {
+    item.append(
+      createElement("span", ["review__span", "review__author"], `Author: ${reviews[x].author}`),
+      createElement("span", ["review__span", "review__rating"], `Rating: ${reviews[x].rating}`),
+      createElement("span", ["review__span", "review__slope"], `Slope: ${reviews[x].slope}`),
+      createElement("span", ["review__span", "review__body"], `Review: ${reviews[x].body}`),
+      createElement("br")
+    );
+  };
+
+  reviewCardReview.append(item);
+}
+
+function handleResortClick(resortName) {
+  reviewCard.classList.add("review-card--visible");
+  const resort = getResortReviewByName(SEED_REVIEWS, resortName);
+  renderReviewContent(resort);
+}
+
+function handleReviewClose() {
+  reviewCard.classList.remove("review-card--visible");
 }
 
 
@@ -63,25 +80,14 @@ for (const resort of RESORTS) {
     .addTo(resortLayer)
     .bindPopup(resort.name)
     .on("click", () => {
-      reviewCard.classList
-        .add("review-card--visible")
-      getResort(resort.name)
+      handleResortClick(resort.name);
     });
 }
 
-reviewCardCloseBtn.onclick = () => {
-  reviewCard.classList.
-    remove("review-card--visible");
-}
-
-map.on("click", () => {
-  reviewCard.classList
-    .remove("review-card--visible");
-});
+reviewCardCloseBtn.onclick = handleReviewClose;
+map.on("click", handleReviewClose);
 
 const layerControl = L.control.layers(null, mapOverlays).addTo(map);
-
-
 
 
 
