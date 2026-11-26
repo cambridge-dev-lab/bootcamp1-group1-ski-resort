@@ -3,6 +3,8 @@ const reviewCardTitle = document.querySelector(".review-card__title");
 const reviewCardReview = document.getElementById("review-card__review-box")
 const reviewCardCloseBtn = document.querySelector(".review-card__close");
 
+let resorts = [];
+let reviews = [];
 
 function createElement(tag, classNames, textContent) {
   const elem = document.createElement(tag);
@@ -52,14 +54,13 @@ function renderReviewContent(reviews) {
 
 function handleResortClick(resortName) {
   reviewCard.classList.add("review-card--visible");
-  const resort = getResortReviewByName(SEED_REVIEWS, resortName);
+  const resort = getResortReviewByName(reviews, resortName);
   renderReviewContent(resort);
 }
 
 function handleReviewClose() {
   reviewCard.classList.remove("review-card--visible");
 }
-
 
 const map = L.map("map").setView([43.9, -71.9], 7);
 L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}", {
@@ -73,16 +74,31 @@ const mapOverlays = {
   "Smiley": smileyLayer,
 };
 
-resortLayer.clearLayers();
 
-for (const resort of RESORTS) {
-  L.marker([resort.lat, resort.lng])
-    .addTo(resortLayer)
-    .bindPopup(resort.name)
-    .on("click", () => {
-      handleResortClick(resort.name);
-    });
+function drawMarkers() {
+  for (const resort of resorts) {
+    L.marker([resort.lat, resort.lng])
+      .addTo(resortLayer)
+      .bindPopup(resort.name)
+      .on("click", () => {
+        handleResortClick(resort.name);
+      });
+  }
 }
+
+async function initialLoad() {
+  try {
+    resorts = await loadResorts();
+    reviews = await loadReviews();
+    drawMarkers();
+  } catch (err) {
+    console.log(err)
+    ERROR_DISPLAY.innerHTML = ERROR_MESSAGE
+  }
+}
+
+initialLoad()
+
 
 reviewCardCloseBtn.onclick = handleReviewClose;
 map.on("click", handleReviewClose);
