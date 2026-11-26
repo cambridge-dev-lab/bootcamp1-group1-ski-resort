@@ -33,9 +33,59 @@
   <div id="map-view">
     <div id="map">
     </div>
+
     <div class="review-card">
-      <button class="review-card__close">X</button>
+      <button type="button" class="review-card__close">X</button>
       <h3 class="review-card__title"></h3>
+
+      <dialog id="dialog">
+        <div class="review-card__heading">
+          Submit your review:
+          <button type="button" id="close" class="review-card__close">X</button>
+        </div>
+
+        <form name="review" class="review-form">
+          <div class="review-form-container">
+            <div>
+              <input class="review-form" placeholder="Your name" required />
+            </div>
+
+            <div>
+              <fieldset class="stars">
+                <input type="radio" id="s5" name="rating" value="5">
+                <label for="s5" aria-label="5 stars">★</label>
+
+                <input type="radio" id="s4" name="rating" value="4">
+                <label for="s4" aria-label="4 stars">★</label>
+
+                <input type="radio" id="s3" name="rating" value="3">
+                <label for="s3" aria-label="3 stars">★</label>
+
+                <input type="radio" id="s2" name="rating" value="2">
+                <label for="s2" aria-label="2 stars">★</label>
+
+                <input type="radio" id="s1" name="rating" value="1">
+                <label for="s1" aria-label="1 star">★</label>
+              </fieldset>
+            </div>
+
+            <div>
+              <input class="review-form" placeholder="Favorite slope" />
+            </div>
+            <div>
+              <input class="review-form" placeholder="Feedback" />
+            </div>
+            <div>
+              <input class="review-form submit" type="submit" value="Post Review" />
+            </div>
+
+          </div>
+        </form>
+
+      </dialog>
+
+      <button id="open" class="review-card__add">Add Review</button>
+
       <div id="review-card__review-box"></div>
     </div>
   </div>

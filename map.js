@@ -62,6 +62,19 @@ function handleReviewClose() {
   reviewCard.classList.remove("review-card--visible");
 }
 
+function tempExperiments() {
+  const dialog = document.getElementById("dialog");
+  const openButton = document.getElementById("open");
+  const closeButton = document.getElementById("close");
+
+  openButton.addEventListener("click", () => {
+    dialog.showModal();
+  });
+  closeButton.addEventListener("click", () => {
+    dialog.close();
+  });
+}
+// TODO: make marker names show on hover rather than click
 const map = L.map("map").setView([43.9, -71.9], 7);
 L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}", {
   attribution: "Tiles © Esri — Esri, DeLorme, NAVTEQ",
@@ -91,6 +104,7 @@ async function initialLoad() {
     resorts = await loadResorts();
     reviews = await loadReviews();
     drawMarkers();
+    tempExperiments();
   } catch (err) {
     console.log(err)
     ERROR_DISPLAY.innerHTML = ERROR_MESSAGE
