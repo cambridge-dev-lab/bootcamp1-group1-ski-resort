@@ -54,7 +54,7 @@ function renderReviewContent(reviews) {
 
 function handleResortClick(resortName) {
   reviewCard.classList.add("review-card--visible");
-  const resort = getResortReviewByName(SEED_REVIEWS, resortName);
+  const resort = getResortReviewByName(reviews, resortName);
   renderReviewContent(resort);
 }
 
