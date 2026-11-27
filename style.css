@@ -165,7 +165,11 @@ h1 {
   margin: 0 1rem 1rem 1rem;
 }
 
-.review-form form {
+#dialog {
+  width: 20rem;
+}
+
+#review-form {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -176,17 +180,27 @@ h1 {
   padding: 1.5rem 1rem;
 }
 
-.review-form input {
+.review-form__input {
   margin: 0.4rem 0;
   padding: 0.5rem 0.5rem;
   min-height: 1rem;
   border-radius: 5px;
   width: 100%;
+  font-size: 14px;
 
   &.submit {
     background-color: lime;
   }
+
+  &.body {
+    field-sizing: content;
+    max-width: 100%;
+    min-height: 4rem;
+  }
 }
+
+
+/* ─── Star Ratings ─── */
 
 .stars {
   --star-size: 3rem;
@@ -217,36 +231,30 @@ h1 {
   transition: color 150ms ease;
 }
 
-/* Selected rating */
 .stars input:checked~label {
   color: var(--star-active);
 }
 
-/* Reset selection while hovering over a star */
 .stars:has(label:hover) label {
   color: var(--star-color);
 }
 
-/* Highlight hovered star and all stars to its left */
 .stars:has(label:hover) label:hover,
 .stars:has(label:hover) label:hover~label {
   color: var(--star-active);
 }
 
-/* Keyboard focus */
 .stars input:focus-visible+label {
   outline: 2px solid currentColor;
   outline-offset: 4px;
   border-radius: 3px;
 }
 
-/* Disabled state */
 .stars input:disabled+label {
   cursor: not-allowed;
   opacity: 0.5;
 }
 
-/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .stars label {
     transition: none;
