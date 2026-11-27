@@ -166,55 +166,96 @@ h1 {
 }
 
 #dialog {
-  min-width: 20rem;
+  min-width: 25rem;
   max-width: 25vw;
+  border: 1px solid lightgray;
+  border-radius: 5px;
 }
 
 #review-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
   position: relative;
 }
 
 .review-form-container {
-  padding: 1.5rem 1rem;
+  padding: 0.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .review-form__input {
-  margin: 0.4rem 0;
+  all: unset;
+  box-sizing: border-box;
+  border: 1px solid lightgray;
   padding: 0.5rem 0.5rem;
   min-height: 1rem;
-  border-radius: 5px;
   width: 100%;
+  border-radius: 5px;
   font-size: 14px;
 
   &.submit {
-    background-color: lime;
+    background-color: lightskyblue;
+    text-align: center;
+    width: 40%;
+    margin-left: auto;
+    cursor: pointer;
+
+    &:disabled {
+      background-color: #e0e0e0;
+      color: #888;
+      border-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    &:not(:disabled):hover {
+      background-color: steelblue;
+      color: white;
+    }
   }
 
   &.body {
     field-sizing: content;
-    max-width: 100%;
     min-height: 4rem;
     max-height: 40rem;
+    max-width: 100%;
+    resize: auto;
   }
 }
 
+.review-card__heading {
+  display: block;
+  width: 90%;
+  padding: 0 1rem;
+  line-height: 0;
+  text-wrap: wrap;
+}
+
+.required {
+  color: red;
+}
+
+.subtext {
+  font-size: 12px;
+  color: slategray;
+}
+
+.form-label {
+  font-size: 13px;
+}
 
 /* ─── Star Ratings ─── */
 
 .stars {
-  --star-size: 3rem;
-  --star-color: #c7c7c7;
-  --star-active: #f5b301;
+  --star-size: 2.5rem;
+  --star-color: lightgrey;
+  --star-active: lightskyblue;
 
   display: flex;
   flex-direction: row-reverse;
   justify-content: center;
   width: 100%;
   border: 0;
-  padding: 0;
+  padding: 5px 0 0;
   margin: 0;
 }
 
