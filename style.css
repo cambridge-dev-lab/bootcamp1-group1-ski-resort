@@ -166,7 +166,8 @@ h1 {
 }
 
 #dialog {
-  width: 20rem;
+  min-width: 20rem;
+  max-width: 25vw;
 }
 
 #review-form {
