@@ -196,6 +196,7 @@ h1 {
     field-sizing: content;
     max-width: 100%;
     min-height: 4rem;
+    max-height: 40rem;
   }
 }
 

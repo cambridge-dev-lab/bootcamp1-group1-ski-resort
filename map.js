@@ -62,7 +62,7 @@ function handleReviewClose() {
   reviewCard.classList.remove("review-card--visible");
 }
 
-function tempExperiments() {
+function handleReviewDialog() {
   const dialog = document.getElementById("dialog");
   const openButton = document.getElementById("open");
   const closeButton = document.getElementById("close");
@@ -105,7 +105,7 @@ async function initialLoad() {
     resorts = await loadResorts();
     reviews = await loadReviews();
     drawMarkers();
-    tempExperiments();
+    handleReviewDialog();
   } catch (err) {
     console.log(err)
     ERROR_DISPLAY.innerHTML = ERROR_MESSAGE
