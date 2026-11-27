@@ -62,6 +62,20 @@ function handleReviewClose() {
   reviewCard.classList.remove("review-card--visible");
 }
 
+function updateElement(query, elemID) {
+  elemID.disabled = !query.checkValidity();
+}
+
+function handleSubmitButton() {
+  const form = document.querySelector("form");
+  const btn = document.getElementById("submitBtn");
+
+  const upd = () => updateElement(form, btn);
+
+  form.addEventListener("input", upd);
+  form.addEventListener("change", upd);
+}
+
 function handleReviewDialog() {
   const dialog = document.getElementById("dialog");
   const openButton = document.getElementById("open");
@@ -73,6 +87,8 @@ function handleReviewDialog() {
   closeButton.addEventListener("click", () => {
     dialog.close();
   });
+
+  handleSubmitButton();
 }
 
 const map = L.map("map").setView([43.9, -71.9], 7);
