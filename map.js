@@ -2,9 +2,13 @@ const reviewCard = document.querySelector(".review-card");
 const reviewCardTitle = document.querySelector(".review-card__title");
 const reviewCardReview = document.getElementById("review-card__review-box")
 const reviewCardCloseBtn = document.querySelector(".review-card__close");
+const reviewForm = document.getElementById("review-form");
+const submitBtn = document.getElementById("submitBtn");
+const dialog = document.getElementById("dialog");
 
 let resorts = [];
 let reviews = [];
+let activeResort = null;
 
 function createElement(tag, classNames, textContent) {
   const elem = document.createElement(tag);
@@ -24,10 +28,10 @@ function createElement(tag, classNames, textContent) {
   return elem;
 }
 
-function getResortReviewByName(reviews, resortName) {
+function getResortReviewById(reviews, resortId) {
   const allReviews = [];
   for (const review of reviews) {
-    if (review.resort === resortName) {
+    if (review.resortId === resortId) {
       allReviews.push(review);
     }
   }
@@ -36,48 +40,105 @@ function getResortReviewByName(reviews, resortName) {
 
 function renderReviewContent(reviews) {
   reviewCardReview.replaceChildren();
-  reviewCardTitle.textContent = reviews[0].resort;
-  const item = createElement("div", "review");
 
-  for (x in reviews) {
+  for (const review of reviews) {
+    const item = createElement("div", "review");
     item.append(
-      createElement("span", ["review__span", "review__author"], `Author: ${reviews[x].author}`),
-      createElement("span", ["review__span", "review__rating"], `Rating: ${reviews[x].rating}`),
-      createElement("span", ["review__span", "review__slope"], `Slope: ${reviews[x].slope}`),
-      createElement("span", ["review__span", "review__body"], `Review: ${reviews[x].body}`),
-      createElement("br")
+      createElement("span", ["review__span", "review__author"], `Author: ${review.author}`),
+      createElement("span", ["review__span", "review__rating"], `Rating: ${review.rating}`),
     );
-  };
+    if (review.slope) {
+      item.append(
+        createElement("span", ["review__span", "review__slope"], `Slope: ${review.slope}`)
+      );
+    };
 
-  reviewCardReview.append(item);
+    if (review.body) {
+      item.append(
+        createElement("span", ["review__span", "review__body"], `Review: ${review.body}`),
+      );
+    };
+
+    reviewCardReview.append(item);
+  };
 }
 
-function handleResortClick(resortName) {
+function showResortCard(resortObj) {
+  activeResort = resortObj;
   reviewCard.classList.add("review-card--visible");
-  const resort = getResortReviewByName(reviews, resortName);
-  renderReviewContent(resort);
+  const resortReviews = getResortReviewById(reviews, resortObj.id);
+  reviewCardTitle.textContent = resortObj.name;
+  renderReviewContent(resortReviews);
 }
 
 function handleReviewClose() {
   reviewCard.classList.remove("review-card--visible");
 }
 
-function updateElement(query, elemID) {
-  elemID.disabled = !query.checkValidity();
+function updateElement(query, elemId, fieldToCheck) {
+  elemId.disabled = !query.checkValidity() || !query[fieldToCheck].value.trim();
 }
 
-function handleSubmitButton() {
-  const form = document.querySelector("form");
-  const btn = document.getElementById("submitBtn");
+function setSubmitBtnState() {
+  const upd = () => updateElement(reviewForm, submitBtn, "author");
 
-  const upd = () => updateElement(form, btn);
+  upd();
 
-  form.addEventListener("input", upd);
-  form.addEventListener("change", upd);
+  reviewForm.addEventListener("input", upd);
+  reviewForm.addEventListener("change", upd);
+}
+
+function getLatestReviewId() {
+  if (reviews.length === 0) {
+    return 0
+  };
+
+  const currentNewestReview = reviews.reduce(
+    (best, cur) => cur.id > best.id ? cur : best);
+  const currentNewestId = currentNewestReview.id;
+
+  return currentNewestId
+}
+
+
+async function handleReviewSubmission(event) {
+  event.preventDefault();
+
+  const formData = new FormData(reviewForm);
+  const review = Object.fromEntries(formData);
+  const reviewId = getLatestReviewId() + 1; //I see the inherent issues with this but I feel doing this properly is out of scope :p
+  const reviewFormFields = document.getElementById("review-form-fields");
+
+  reviewFormFields.disabled = true;
+
+  review.id = reviewId;
+  review.rating = Number(review.rating);
+  review.author = review.author.trim();
+  review.body = review.body.trim();
+  review.slope = review.slope.trim();
+  review.resortId = activeResort.id;
+  review.resort = activeResort.name;
+
+  try {
+    await saveReview(review);
+    reviews.push(review);
+    showResortCard(activeResort)
+  } catch (err) {
+    console.error(err);
+    return;
+  } finally {
+    reviewFormFields.disabled = false;
+  }
+
+  console.log(review)
+
+  reviewForm.reset();
+  updateElement(reviewForm, submitBtn, "author");
+
+  dialog.close();
 }
 
 function handleReviewDialog() {
-  const dialog = document.getElementById("dialog");
   const openButton = document.getElementById("open");
   const closeButton = document.getElementById("close");
 
@@ -88,7 +149,10 @@ function handleReviewDialog() {
     dialog.close();
   });
 
-  handleSubmitButton();
+  reviewForm.addEventListener("submit", handleReviewSubmission);
+
+  setSubmitBtnState();
+
 }
 
 const map = L.map("map").setView([43.9, -71.9], 7);
@@ -111,7 +175,7 @@ function drawMarkers() {
       .bindTooltip(resort.name)
       .bindPopup(resort.name)
       .on("click", () => {
-        handleResortClick(resort.name);
+        showResortCard(resort);
       });
   }
 }
@@ -121,14 +185,13 @@ async function initialLoad() {
     resorts = await loadResorts();
     reviews = await loadReviews();
     drawMarkers();
-    handleReviewDialog();
   } catch (err) {
-    console.log(err)
-    ERROR_DISPLAY.innerHTML = ERROR_MESSAGE
+    console.error(err)
   }
 }
 
 initialLoad()
+handleReviewDialog();
 
 
 reviewCardCloseBtn.onclick = handleReviewClose;

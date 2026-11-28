@@ -48,7 +48,7 @@
         </div>
 
         <form name="review" id="review-form">
-          <div class="review-form-container">
+          <fieldset id="review-form-fields" class="review-form-container">
             <div>
               <fieldset class="stars">
                 <legend class="form-label">Rate your experience <span class="required">*</span></legend>
@@ -71,20 +71,20 @@
 
             <div>
               <label class="form-label" for="author">Your name <span class="required">*</span></label>
-              <input class="review-form__input" placeholder="Your name" name="author" required />
+              <input class="review-form__input" placeholder="Your name" name="author" id="author" required />
             </div>
 
             <div>
               <label class="form-label" for="slope">Favorite slope</label>
-              <input class="review-form__input" placeholder="Favorite slope" name="slope" />
+              <input class="review-form__input" placeholder="Favorite slope" name="slope" id="slope" />
             </div>
             <div>
               <label class="form-label" for="body">Your review</label>
-              <textarea class="review-form__input body" placeholder="Your review..." name="body"></textarea>
+              <textarea class="review-form__input body" placeholder="Your review..." name="body" id="body"></textarea>
             </div>
-            <button type="button" class="review-form__input submit" id="submitBtn" disabled>Post Review</button>
+            <button class="review-form__input submit" id="submitBtn" disabled>Post Review</button>
 
-          </div>
+          </fieldset>
         </form>
 
       </dialog>
