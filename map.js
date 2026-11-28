@@ -5,6 +5,7 @@ const reviewCardCloseBtn = document.querySelector(".review-card__close");
 const reviewForm = document.getElementById("review-form");
 const submitBtn = document.getElementById("submitBtn");
 const dialog = document.getElementById("dialog");
+const reviewFormFields = document.getElementById("review-form-fields");
 
 let resorts = [];
 let reviews = [];
@@ -107,9 +108,7 @@ async function handleReviewSubmission(event) {
   const formData = new FormData(reviewForm);
   const review = Object.fromEntries(formData);
   const reviewId = getLatestReviewId() + 1; //I see the inherent issues with this but I feel doing this properly is out of scope :p
-  const reviewFormFields = document.getElementById("review-form-fields");
 
-  reviewFormFields.disabled = true;
 
   review.id = reviewId;
   review.rating = Number(review.rating);
@@ -119,10 +118,10 @@ async function handleReviewSubmission(event) {
   review.resortId = activeResort.id;
   review.resort = activeResort.name;
 
+  reviewFormFields.disabled = true;
+
   try {
     await saveReview(review);
-    reviews.push(review);
-    showResortCard(activeResort)
   } catch (err) {
     console.error(err);
     return;
@@ -130,8 +129,9 @@ async function handleReviewSubmission(event) {
     reviewFormFields.disabled = false;
   }
 
-  console.log(review)
 
+  reviews.push(review);
+  showResortCard(activeResort)
   reviewForm.reset();
   updateElement(reviewForm, submitBtn, "author");
 
